@@ -7,69 +7,56 @@
 <script setup>
 import { onMounted } from 'vue';
 import { Chart } from '@antv/g2';
+import g2theme from './g2-theme.json';
 let chart;
 const initChart = () => {
 
     const data = [
-        { type: '未知', value: 654, percent: 0.02 },
-        { type: '17 岁以下', value: 654, percent: 0.02 },
-        { type: '18-24 岁', value: 4400, percent: 0.2 },
-        { type: '25-29 岁', value: 5300, percent: 0.24 },
-        { type: '30-39 岁', value: 6200, percent: 0.28 },
-        { type: '40-49 岁', value: 3300, percent: 0.14 },
-        { type: '50 岁以上', value: 1500, percent: 0.06 },
+        { letter: 'A', frequency: 0.08167 },
+        { letter: 'B', frequency: 0.01492 },
+        { letter: 'C', frequency: 0.02782 },
+        { letter: 'D', frequency: 0.04253 },
+        { letter: 'E', frequency: 0.12702 },
+        { letter: 'F', frequency: 0.02288 },
+        { letter: 'G', frequency: 0.02015 },
+        { letter: 'H', frequency: 0.06094 },
+        { letter: 'I', frequency: 0.06966 },
+        { letter: 'J', frequency: 0.00153 },
+        { letter: 'K', frequency: 0.00772 },
+        { letter: 'L', frequency: 0.04025 },
+        { letter: 'M', frequency: 0.02406 },
+        { letter: 'N', frequency: 0.06749 },
+        { letter: 'O', frequency: 0.07507 },
+        { letter: 'P', frequency: 0.01929 },
+        { letter: 'Q', frequency: 0.00095 },
+        { letter: 'R', frequency: 0.05987 },
+        { letter: 'S', frequency: 0.06327 },
+        { letter: 'T', frequency: 0.09056 },
+        { letter: 'U', frequency: 0.02758 },
+        { letter: 'V', frequency: 0.00978 },
+        { letter: 'W', frequency: 0.0236 },
+        { letter: 'X', frequency: 0.0015 },
+        { letter: 'Y', frequency: 0.01974 },
+        { letter: 'Z', frequency: 0.00074 },
     ];
 
     const container = document.getElementById('container');
     const width = container.offsetWidth;
     const height = container.offsetHeight;
 
-    chart = new Chart({
+
+
+    const chart = new Chart({
         container: 'columnchart',
-        autoFit: true,
         width,
         height,
-        // padding: [50, 20, 50, 20],
-    });
-    chart.data(data);
-    chart.scale('value', {
-        alias: '销售额(万)',
+        autoFit: true,
     });
 
-    chart.axis('type', {
-        tickLine: {
-            alignTick: false,
-        },
-    });
-    chart.axis('value', false);
+    chart
+        .theme(g2theme)
+    chart.interval().data(data).encode('x', 'letter').encode('y', 'frequency');
 
-    chart.tooltip({
-        showMarkers: false,
-    });
-    chart.interval().position('type*value');
-    chart.interaction('element-active');
-
-    // 添加文本标注
-    data.forEach((item) => {
-        chart
-            .annotation()
-            .text({
-                position: [item.type, item.value],
-                content: item.value,
-                style: {
-                    textAlign: 'center',
-                },
-                offsetY: -30,
-            })
-            .text({
-                position: [item.type, item.value],
-                content: (item.percent * 100).toFixed(0) + '%',
-                style: {
-                    textAlign: 'center',
-                },
-                offsetY: -12,
-            });
-    });
     chart.render();
 }
 
