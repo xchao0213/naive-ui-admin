@@ -61,7 +61,7 @@
             :class="{
               'main-view-fix': fixedMulti,
               noMultiTabs: !isMultiTabs,
-              'mt-3': !isMultiTabs,
+              'pt-3': !isMultiTabs,
             }"
           >
             <MainView />
@@ -252,6 +252,7 @@
     margin: 0 10px 10px;
     position: relative;
     padding-top: 64px;
+    height: calc(100vh - 10px);
   }
 
   .layout-content-main-fix {
@@ -260,6 +261,10 @@
 
   .fluid-header {
     padding-top: 0;
+  }
+
+  .main-view {
+    height: 100%;
   }
 
   .main-view-fix {
